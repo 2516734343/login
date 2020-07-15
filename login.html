@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<label for="user">用户名：</label>
+<input type="text" id="user" placeholder="请输入用户名">
+<label for="pwd">密码：</label>
+<input type="text" id="pwd" placeholder="请输入密码">
+<button id="submit">登录</button>
+<script>
+    var user = document.getElementById('user');
+    var pwd = document.getElementById('pwd');
+    user.addEventListener('change',function (e) {
+        user.value = e.target.value;
+    })
+    pwd.addEventListener('change',function (e) {
+        pwd.value = e.target.value;
+    })
+    var data = {
+        name: user.value,
+        password: pwd.value
+    }
+    document.getElementById('submit').addEventListener('click',function (event) {
+        fetch('/login',{
+            method: 'post',
+            body:data,
+
+        }).then(res => {
+            console.log(res);
+            if(res.ret_code === 0){
+                window.location.href = '/home';
+            }
+        })
+    })
+</script>
+</body>
+</html>
